@@ -1,7 +1,7 @@
 PODS:
   - APNSUtil (1.0.0):
-    - ObjectMapper (~> 3.1.0)
-  - ObjectMapper (3.1.0)
+    - ObjectMapper (~> 2.0.0)
+  - ObjectMapper (2.0.0)
 
 DEPENDENCIES:
   - APNSUtil (from `../`)
@@ -11,8 +11,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  APNSUtil: 47c9c12c495b571e4778c1ffeed1518e3ddb67ef
-  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  APNSUtil: d1c3c6b2747ed363780886b1aaba486eaeea1c0c
+  ObjectMapper: aed2570edabbd3c9b26c939e1cabdb6558f933e0
 
 PODFILE CHECKSUM: 613e78454e33684404b49d733e0a3a475e0ef3f8
 
