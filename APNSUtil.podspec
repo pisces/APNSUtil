@@ -27,5 +27,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'APNSUtil/Classes/**/*'
-  s.dependency 'ObjectMapper', '~> 2.0'
+  s.dependency 'ObjectMapper', '~> 3.1.0'
 end
