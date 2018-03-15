@@ -1,12 +1,12 @@
 //
-//  DateTransform.swift
+//  EnumTransform.swift
 //  ObjectMapper
 //
-//  Created by Tristan Himmelman on 2014-10-13.
+//  Created by Kaan Dedeoglu on 3/20/15.
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2015 Hearst
+//  Copyright (c) 2014-2016 Hearst
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,27 +28,22 @@
 
 import Foundation
 
-open class DateTransform: TransformType {
-	public typealias Object = Date
-	public typealias JSON = Double
-
+open class EnumTransform<T: RawRepresentable>: TransformType {
+	public typealias Object = T
+	public typealias JSON = T.RawValue
+	
 	public init() {}
-
-	public func transformFromJSON(_ value: Any?) -> Date? {
-		if let timeInt = value as? Double {
-			return Date(timeIntervalSince1970: TimeInterval(timeInt))
+	
+	open func transformFromJSON(_ value: Any?) -> T? {
+		if let raw = value as? T.RawValue {
+			return T(rawValue: raw)
 		}
-		
-		if let timeStr = value as? String {
-			return Date(timeIntervalSince1970: TimeInterval(atof(timeStr)))
-		}
-		
 		return nil
 	}
-
-	public func transformToJSON(_ value: Date?) -> Double? {
-		if let date = value {
-			return Double(date.timeIntervalSince1970)
+	
+	open func transformToJSON(_ value: T?) -> T.RawValue? {
+		if let obj = value {
+			return obj.rawValue
 		}
 		return nil
 	}

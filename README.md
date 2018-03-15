@@ -134,10 +134,10 @@ To integrate APNSUtil into your Xcode project using CocoaPods, specify it in you
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 target '<Your Target Name>' do
-    pod 'APNSUtil', '~> 1.0.0'
+    pod 'APNSUtil', '~> 1.1.0'
 end
 ```
 
@@ -161,14 +161,14 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/APNSUtil" ~> 1.0.0
+github "pisces/APNSUtil" ~> 1.1.0
 ```
 
 Run `carthage update` to build the framework and drag the built `APNSUtil.framework` into your Xcode project.
 
 ## Requirements
 
-iOS Deployment Target 8.0 higher
+iOS Deployment Target 9.0 higher
 
 ## Author
 
