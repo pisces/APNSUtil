@@ -13,58 +13,6 @@
 		2301E97D205A524B00E0E358 /* NSObject+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301E97A205A524B00E0E358 /* NSObject+Codable.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		23CBFC5A205A909500ED9FDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6AAC8F7619F03C2900E7A677;
-			remoteInfo = "ObjectMapper-iOS";
-		};
-		23CBFC5C205A909500ED9FDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CD1602FF1AC023D5000CD69A;
-			remoteInfo = "ObjectMapper-Mac";
-		};
-		23CBFC5E205A909500ED9FDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6A2AD03D1B2C78540097E150;
-			remoteInfo = "ObjectMapper-watchOS";
-		};
-		23CBFC60205A909500ED9FDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6A05B7A61BE274BE00F19B53;
-			remoteInfo = "ObjectMapper-tvOS";
-		};
-		23CBFC62205A909500ED9FDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6AAC8F8119F03C2900E7A677;
-			remoteInfo = "ObjectMapper-iOSTests";
-		};
-		23CBFC64205A909500ED9FDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CD1603091AC023D6000CD69A;
-			remoteInfo = "ObjectMapper-MacTests";
-		};
-		23CBFC66205A909500ED9FDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6A05B7AF1BE274BE00F19B53;
-			remoteInfo = "ObjectMapper-tvOSTests";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		2301E96D205A51F300E0E358 /* APNSUtil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = APNSUtil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2301E970205A51F300E0E358 /* APNSUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APNSUtil.h; sourceTree = "<group>"; };
@@ -72,7 +20,6 @@
 		2301E978205A524B00E0E358 /* APNSInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APNSInstance.swift; path = Classes/APNSInstance.swift; sourceTree = "<group>"; };
 		2301E979205A524B00E0E358 /* APNSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APNSManager.swift; path = Classes/APNSManager.swift; sourceTree = "<group>"; };
 		2301E97A205A524B00E0E358 /* NSObject+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSObject+Codable.swift"; path = "Classes/NSObject+Codable.swift"; sourceTree = "<group>"; };
-		23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectMapper.xcodeproj; path = Carthage/Checkouts/ObjectMapper/ObjectMapper.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +36,6 @@
 		2301E963205A51F300E0E358 = {
 			isa = PBXGroup;
 			children = (
-				23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */,
 				2301E96F205A51F300E0E358 /* APNSUtil */,
 				2301E96E205A51F300E0E358 /* Products */,
 			);
@@ -113,20 +59,6 @@
 				2301E971205A51F300E0E358 /* Info.plist */,
 			);
 			path = APNSUtil;
-			sourceTree = "<group>";
-		};
-		23CBFC51205A909400ED9FDF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				23CBFC5B205A909500ED9FDF /* ObjectMapper.framework */,
-				23CBFC5D205A909500ED9FDF /* ObjectMapper.framework */,
-				23CBFC5F205A909500ED9FDF /* ObjectMapper.framework */,
-				23CBFC61205A909500ED9FDF /* ObjectMapper.framework */,
-				23CBFC63205A909500ED9FDF /* ObjectMapper-iOSTests.xctest */,
-				23CBFC65205A909500ED9FDF /* ObjectMapper-MacTests.xctest */,
-				23CBFC67205A909500ED9FDF /* ObjectMapper-tvOSTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,70 +119,12 @@
 			mainGroup = 2301E963205A51F300E0E358;
 			productRefGroup = 2301E96E205A51F300E0E358 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 23CBFC51205A909400ED9FDF /* Products */;
-					ProjectRef = 23CBFC50205A909400ED9FDF /* ObjectMapper.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				2301E96C205A51F300E0E358 /* APNSUtil */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		23CBFC5B205A909500ED9FDF /* ObjectMapper.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectMapper.framework;
-			remoteRef = 23CBFC5A205A909500ED9FDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23CBFC5D205A909500ED9FDF /* ObjectMapper.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectMapper.framework;
-			remoteRef = 23CBFC5C205A909500ED9FDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23CBFC5F205A909500ED9FDF /* ObjectMapper.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectMapper.framework;
-			remoteRef = 23CBFC5E205A909500ED9FDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23CBFC61205A909500ED9FDF /* ObjectMapper.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectMapper.framework;
-			remoteRef = 23CBFC60205A909500ED9FDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23CBFC63205A909500ED9FDF /* ObjectMapper-iOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ObjectMapper-iOSTests.xctest";
-			remoteRef = 23CBFC62205A909500ED9FDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23CBFC65205A909500ED9FDF /* ObjectMapper-MacTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ObjectMapper-MacTests.xctest";
-			remoteRef = 23CBFC64205A909500ED9FDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		23CBFC67205A909500ED9FDF /* ObjectMapper-tvOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ObjectMapper-tvOSTests.xctest";
-			remoteRef = 23CBFC66205A909500ED9FDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2301E96B205A51F300E0E358 /* Resources */ = {
@@ -325,7 +199,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -379,7 +253,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -402,13 +276,10 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = APNSUtil/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherit)",
-					"-framework",
-					"\"ObjectMapper\"",
-				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = pisces.lib.APNSUtil;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -431,13 +302,10 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = APNSUtil/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherit)",
-					"-framework",
-					"\"ObjectMapper\"",
-				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = pisces.lib.APNSUtil;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
