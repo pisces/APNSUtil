@@ -1,0 +1,6 @@
+framework module APNSUtil {
+  umbrella header "APNSUtil-umbrella.h"
+
+  export *
+  module * { export * }
+}

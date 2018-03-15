@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (4.6.0)
+  - AlamofireObjectMapper (5.0.0):
+    - Alamofire (~> 4.1)
+    - ObjectMapper (~> 3.0)
+  - APNSUtil (1.0.0):
+    - AlamofireObjectMapper (~> 5.0.0)
+  - ObjectMapper (3.1.0)
+
+DEPENDENCIES:
+  - APNSUtil (from `../`)
+
+EXTERNAL SOURCES:
+  APNSUtil:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
+  APNSUtil: dd57ed78950e8eace6889403997f62f86e9996b3
+  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+
+PODFILE CHECKSUM: 613e78454e33684404b49d733e0a3a475e0ef3f8
+
+COCOAPODS: 1.4.0
