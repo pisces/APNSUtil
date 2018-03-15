@@ -43,15 +43,15 @@ public class APNSManager {
         dequeue()
         return self
     }
+    public func didReceive<T: Mappable>(userInfo: [AnyHashable : Any], as: T.Type, isInactive: Bool) {
+        let map = Map(mappingType: .fromJSON, JSON: userInfo as! [String: Any])
+        let model = T.init(map: map)!
+        enqueue(RemoteNotificationElement(isInactive: isInactive, model: model)).dequeue()
+    }
     public func processing(_ subscribable: Subscribable, _ closure: @escaping Processing) -> APNSManager {
         guard processingClosureMap[subscribable.hash] == nil else {return self}
         processingClosureMap[subscribable.hash] = closure
         return self
-    }
-    public func received<T: Mappable>(_ mappable: T.Type, userInfo: [AnyHashable : Any], isInactive: Bool) {
-        let map = Map(mappingType: .fromJSON, JSON: userInfo as! [String: Any])
-        let model = T.init(map: map)!
-        enqueue(RemoteNotificationElement(isInactive: isInactive, model: model)).dequeue()
     }
     public func register() -> APNSManager {
         if #available(iOS 10.0, *) {
