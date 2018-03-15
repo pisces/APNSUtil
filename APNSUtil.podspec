@@ -27,5 +27,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'APNSUtil/Classes/**/*'
-  s.dependency 'AlamofireObjectMapper', '~> 5.0.0'
+  s.dependency 'ObjectMapper', '~> 3.1.0'
 end

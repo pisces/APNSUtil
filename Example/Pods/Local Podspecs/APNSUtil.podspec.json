@@ -1,8 +1,8 @@
 {
   "name": "APNSUtil",
   "version": "1.0.0",
-  "summary": "APNSUtil is makes code simple for apple push notification service.",
-  "description": "APNSUtil is makes code simple for apple push notification service.",
+  "summary": "APNSUtil is makes code simple using apple push notification service.",
+  "description": "APNSUtil is makes code simple using apple push notification service.",
   "homepage": "https://github.com/pisces/APNSUtil",
   "license": {
     "type": "MIT",
@@ -20,8 +20,8 @@
   },
   "source_files": "APNSUtil/Classes/**/*",
   "dependencies": {
-    "AlamofireObjectMapper": [
-      "~> 5.0.0"
+    "ObjectMapper": [
+      "~> 3.1.0"
     ]
   }
 }

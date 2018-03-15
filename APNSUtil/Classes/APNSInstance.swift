@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objcMembers public class APNSInstance: NSObject {
+@objc public class APNSInstance: NSObject {
     
     // MARK: - Constants
     

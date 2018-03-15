@@ -48,7 +48,7 @@ public class APNSManager {
         processingClosureMap[subscribable.hash] = closure
         return self
     }
-    public func received<T: Mappable>(_ mappable: T.Type, userInfo: [AnyHashable : Any], isInactive: Bool) {
+    public func didReceive<T: Mappable>(userInfo: [AnyHashable : Any], as: T.Type, isInactive: Bool) {
         let map = Map(mappingType: .fromJSON, JSON: userInfo as! [String: Any])
         let model = T.init(map: map)!
         enqueue(RemoteNotificationElement(isInactive: isInactive, model: model)).dequeue()
