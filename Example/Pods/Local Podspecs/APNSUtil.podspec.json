@@ -16,12 +16,12 @@
     "tag": "1.0.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source_files": "APNSUtil/Classes/**/*",
   "dependencies": {
     "ObjectMapper": [
-      "~> 2.0.0"
+      "~> 2.0"
     ]
   }
 }

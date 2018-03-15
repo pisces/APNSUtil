@@ -24,8 +24,8 @@ Pod::Spec.new do |s|
   s.author           = { 'pisces' => 'hh963103@gmail.com' }
   s.source           = { :git => 'https://github.com/pisces/APNSUtil.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'APNSUtil/Classes/**/*'
-  s.dependency 'ObjectMapper', '~> 3.1.0'
+  s.dependency 'ObjectMapper', '~> 2.0'
 end
