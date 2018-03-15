@@ -20,9 +20,34 @@
 import APNSUtil
 ```
 
-## Example
+## Using
 
-### in app delegate
+### Implementation for main view controller
+```swift
+import UIKit
+import APNSUtil
+
+class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        APNSManager.shared
+            .setTypes([.sound, .alert, .badge])             // setting user notification types
+            .register()                                     // registering to use apns
+            .processing(self) {                             // processing received apns payload
+                let payload: APNSPayload = $0.payload()     // your custom payload with generic
+
+                if $0.isInactive {
+                    // TODO: write code to present viewController on inactive
+                } else {
+                    // TODO: write code to show toast message on active
+                }
+            }.begin()   // begin receiving apns payload
+    }
+}
+```
+
+### Implementation for app delegate
 
 ```swift
 import UIKit
@@ -69,27 +94,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-### in main view controller
+### Implement your payload model
 ```swift
-import UIKit
 import APNSUtil
+import ObjectMapper
 
-class ViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+extension RemoteNotificationElement {
+    typealias T = APNSPayload
+}
 
-        APNSManager.shared
-            .setTypes([.sound, .alert, .badge])             // setting user notification types
-            .register()                                     // registering to use apns
-            .processing(self) {                             // processing received apns payload
-                let payload: APNSPayload = $0.payload()     // your custom payload with generic
+struct APNSPayload: Mappable {
+    var msg: String?
+    var id: String?
 
-                if $0.isInactive {
-                    // TODO: write code to present viewController on inactive
-                } else {
-                    // TODO: write code to show toast message on active
-                }
-            }.begin()   // begin receiving apns payload
+    init?(map: Map) {
+        mapping(map: map)
+    }
+
+    mutating func mapping(map: Map) {
+        msg <- map["msg"]
+        id <- map["id"]
     }
 }
 ```
