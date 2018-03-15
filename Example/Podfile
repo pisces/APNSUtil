@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'APNSUtil_Example' do
+  pod 'APNSUtil', :path => '../'
+
+  target 'APNSUtil_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
