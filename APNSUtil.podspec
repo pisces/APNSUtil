@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'APNSUtil'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'APNSUtil is makes code simple using apple push notification service.'
   s.description      = 'APNSUtil is makes code simple using apple push notification service.'
   s.homepage         = 'https://github.com/pisces/APNSUtil'
@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/pisces/APNSUtil.git', :tag => s.version.to_s }
   s.ios.deployment_target = '9.0'
   s.source_files = 'APNSUtil/Classes/**/*'
-  s.dependency 'ObjectMapper', '~> 2.0'
+  s.dependency 'ObjectMapper', '~> 3.1'
 end

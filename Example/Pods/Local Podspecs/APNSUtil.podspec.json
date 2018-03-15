@@ -1,6 +1,6 @@
 {
   "name": "APNSUtil",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "summary": "APNSUtil is makes code simple using apple push notification service.",
   "description": "APNSUtil is makes code simple using apple push notification service.",
   "homepage": "https://github.com/pisces/APNSUtil",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/pisces/APNSUtil.git",
-    "tag": "1.0.0"
+    "tag": "1.1.0"
   },
   "platforms": {
     "ios": "9.0"
@@ -21,7 +21,7 @@
   "source_files": "APNSUtil/Classes/**/*",
   "dependencies": {
     "ObjectMapper": [
-      "~> 2.0"
+      "~> 3.1"
     ]
   }
 }

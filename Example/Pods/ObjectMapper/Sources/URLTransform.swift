@@ -1,12 +1,12 @@
 //
-//  DataTransform.swift
+//  URLTransform.swift
 //  ObjectMapper
 //
-//  Created by Yagrushkin, Evgeny on 8/30/16.
+//  Created by Tristan Himmelman on 2014-10-27.
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2015 Hearst
+//  Copyright (c) 2014-2016 Hearst
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,23 +28,40 @@
 
 import Foundation
 
-open class DataTransform: TransformType {
-	public typealias Object = Data
+open class URLTransform: TransformType {
+	public typealias Object = URL
 	public typealias JSON = String
-	
-	public init() {}
-	
-	public func transformFromJSON(_ value: Any?) -> Data? {
-		guard let string = value as? String else{
-			return nil
-		}
-		return Data(base64Encoded: string)
+	private let shouldEncodeURLString: Bool
+	private let allowedCharacterSet: CharacterSet
+
+	/**
+	Initializes the URLTransform with an option to encode URL strings before converting them to an NSURL
+	- parameter shouldEncodeUrlString: when true (the default) the string is encoded before passing
+	to `NSURL(string:)`
+	- returns: an initialized transformer
+	*/
+	public init(shouldEncodeURLString: Bool = false, allowedCharacterSet: CharacterSet = .urlQueryAllowed) {
+		self.shouldEncodeURLString = shouldEncodeURLString
+		self.allowedCharacterSet = allowedCharacterSet
 	}
-	
-	public func transformToJSON(_ value: Data?) -> String? {
-		guard let data = value else{
+
+	open func transformFromJSON(_ value: Any?) -> URL? {
+		guard let URLString = value as? String else { return nil }
+		
+		if !shouldEncodeURLString {
+			return URL(string: URLString)
+		}
+
+		guard let escapedURLString = URLString.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else {
 			return nil
 		}
-		return data.base64EncodedString()
+		return URL(string: escapedURLString)
+	}
+
+	open func transformToJSON(_ value: URL?) -> String? {
+		if let URL = value {
+			return URL.absoluteString
+		}
+		return nil
 	}
 }
