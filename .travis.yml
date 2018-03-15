@@ -1,4 +1,3 @@
 language: swift
 osx_image: xcode9.2
-podfile: Example/Podfile
 script: set -o pipefail && xcodebuild -workspace Example/APNSUtil.xcworkspace -scheme APNSUtil-Example -sdk iphonesimulator11.2 | xcpretty
