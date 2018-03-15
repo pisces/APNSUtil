@@ -66,10 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         APNSManager.shared.registerDeviceToken(deviceToken)
-        // TODO: write code to update devicetoken with your api server
+        // TODO: write code to update device token with your api server
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        // TODO: write code to update devicetoken with your api server
+        // TODO: write code to update device token with your api server
     }
 
     // MARK: - Push Notification for iOS 9
@@ -78,18 +78,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        APNSManager.shared.received(APNSPayload.self, userInfo: userInfo, isInactive: application.applicationState == .inactive)
+        APNSManager.shared.didReceive(userInfo: userInfo, as: APNSPayload.self, isInactive: application.applicationState == .inactive)
     }
 
     // MARK: - Push Notification for iOS 10 or higher
 
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        APNSManager.shared.received(APNSPayload.self, userInfo: notification.request.content.userInfo, isInactive: false)
+        APNSManager.shared.didReceive(userInfo: notification.request.content.userInfo, as: APNSPayload.self, isInactive: false)
     }
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        APNSManager.shared.received(APNSPayload.self, userInfo: response.notification.request.content.userInfo, isInactive: true)
+        APNSManager.shared.didReceive(userInfo: response.notification.request.content.userInfo, as: APNSPayload.self, isInactive: true)
     }
 }
 ```
