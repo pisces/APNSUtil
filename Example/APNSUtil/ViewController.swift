@@ -10,15 +10,14 @@ import UIKit
 import APNSUtil
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         APNSManager.shared
-            .register()     // registering to use apns
-            .processing(self) {     // processing received apns payload
-                // your custom payload with generic
-                let payload: APNSPayload = $0.payload()
+            .setTypes([.sound, .alert, .badge])             // setting user notification types
+            .register()                                     // registering to use apns
+            .processing(self) {                             // processing received apns payload
+                let payload: APNSPayload = $0.payload()     // your custom payload with generic
                 
                 if $0.isInactive {
                     // TODO: write code to present viewController on inactive
@@ -28,4 +27,3 @@ class ViewController: UIViewController {
             }.begin()   // begin receiving apns payload
     }
 }
-

@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'APNSUtil'
   s.version          = '1.0.0'
-  s.summary          = 'APNSUtil is makes code simple for apple push notification service.'
+  s.summary          = 'APNSUtil is makes code simple using apple push notification service.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = 'APNSUtil is makes code simple for apple push notification service.'
+  s.description      = 'APNSUtil is makes code simple using apple push notification service.'
 
   s.homepage         = 'https://github.com/pisces/APNSUtil'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }

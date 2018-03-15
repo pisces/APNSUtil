@@ -51,8 +51,7 @@ public class APNSManager {
     public func received<T: Mappable>(_ mappable: T.Type, userInfo: [AnyHashable : Any], isInactive: Bool) {
         let map = Map(mappingType: .fromJSON, JSON: userInfo as! [String: Any])
         let model = T.init(map: map)!
-        let element = RemoteNotificationElement(isInactive: isInactive, model: model)
-        enqueue(element).dequeue()
+        enqueue(RemoteNotificationElement(isInactive: isInactive, model: model)).dequeue()
     }
     public func register() -> APNSManager {
         if #available(iOS 10.0, *) {
