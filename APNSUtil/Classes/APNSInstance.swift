@@ -36,14 +36,6 @@ import Foundation
     
     // MARK: - Public methods
     
-    private class func decodeInstance() -> APNSInstance {
-        guard let data = UserDefaults.standard.data(forKey: Const.keyForAPNSInstance),
-            let instance = NSKeyedUnarchiver.unarchiveObject(with: data) as? APNSInstance else {
-                return APNSInstance()
-        }
-        return instance
-    }
-    
     public func clear() {
         token = nil
         
@@ -56,6 +48,16 @@ import Foundation
         
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: self), forKey: Const.keyForAPNSInstance)
         UserDefaults.standard.synchronize()
+    }
+    
+    // MARK: - Private methods
+    
+    private class func decodeInstance() -> APNSInstance {
+        guard let data = UserDefaults.standard.data(forKey: Const.keyForAPNSInstance),
+            let instance = NSKeyedUnarchiver.unarchiveObject(with: data) as? APNSInstance else {
+                return APNSInstance()
+        }
+        return instance
     }
 }
 
