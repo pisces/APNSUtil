@@ -1,6 +1,7 @@
 # APNSUtil
 
 ![Swift](https://img.shields.io/badge/Swift-4.0-orange.svg)
+![Swift](https://img.shields.io/badge/Swift-3.2-orange.svg)
 [![CI Status](http://img.shields.io/travis/pisces/APNSUtil.svg?style=flat)](https://travis-ci.org/pisces/APNSUtil)
 [![Version](https://img.shields.io/cocoapods/v/APNSUtil.svg?style=flat)](http://cocoapods.org/pods/APNSUtil)
 [![License](https://img.shields.io/cocoapods/l/APNSUtil.svg?style=flat)](http://cocoapods.org/pods/APNSUtil)
