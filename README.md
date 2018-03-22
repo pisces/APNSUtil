@@ -8,7 +8,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/APNSUtil.svg?style=flat)](http://cocoapods.org/pods/APNSUtil)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-- APNSUtil is makes code simple using apple push notification service.
+- APNSUtil makes code simple settings and landing for apple push notification service.
 
 ## Features
 - Using apple push notification service simply
