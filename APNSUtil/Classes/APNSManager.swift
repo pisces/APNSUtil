@@ -43,6 +43,10 @@ public class APNSManager {
         dequeue()
         return self
     }
+    public func didFinishLaunching<T: Mappable>(withOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?, as type: T.Type) {
+        guard let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] else {return}
+        didReceive(userInfo: userInfo, as: type, isInactive: true)
+    }
     public func didReceive<T: Mappable>(userInfo: [AnyHashable : Any], as: T.Type, isInactive: Bool) {
         let map = Map(mappingType: .fromJSON, JSON: userInfo as! [String: Any])
         let model = T.init(map: map)!
