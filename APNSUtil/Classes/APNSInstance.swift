@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class APNSInstance: NSObject {
+@objcMembers public class APNSInstance: NSObject {
     
     // MARK: - Constants
     
@@ -38,6 +38,7 @@ import Foundation
     
     public func clear() {
         token = nil
+        tokenString = nil
         
         UserDefaults.standard.removeObject(forKey: Const.keyForAPNSInstance)
         UserDefaults.standard.synchronize()
