@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'APNSUtil'
-  s.version          = '1.1.2'
+  s.version          = '1.1.3'
   s.summary          = 'APNSUtil is makes code simple using apple push notification service.'
   s.description      = 'APNSUtil is makes code simple using apple push notification service.'
   s.homepage         = 'https://github.com/pisces/APNSUtil'
