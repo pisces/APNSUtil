@@ -44,7 +44,9 @@ public class APNSManager {
         return self
     }
     public func didFinishLaunching<T: Mappable>(withOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?, as type: T.Type) {
-        guard let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] else {return}
+        let remote = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
+        let local = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? [AnyHashable: Any]
+        guard let userInfo = remote ?? local else {return}
         didReceive(userInfo: userInfo, as: type, isInactive: true)
     }
     public func didReceive<T: Mappable>(userInfo: [AnyHashable : Any], as: T.Type, isInactive: Bool) {
