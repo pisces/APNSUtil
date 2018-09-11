@@ -1,19 +1,23 @@
 PODS:
-  - APNSUtil (1.1.0):
+  - APNSUtil/AppExtension (1.1.4):
     - ObjectMapper (~> 3.1)
-  - ObjectMapper (3.1.0)
+  - ObjectMapper (3.3.0)
 
 DEPENDENCIES:
-  - APNSUtil (from `../`)
+  - APNSUtil/AppExtension (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ObjectMapper
 
 EXTERNAL SOURCES:
   APNSUtil:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  APNSUtil: 773198a5bd978ac8417d947e408bfd0d3cb29047
-  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  APNSUtil: f17545141df5eced25cbe5cbd6381ba4b79b9247
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
 
-PODFILE CHECKSUM: 613e78454e33684404b49d733e0a3a475e0ef3f8
+PODFILE CHECKSUM: 7563841551ece1485579af146b74c9ca08ddb06d
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

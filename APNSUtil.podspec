@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'APNSUtil'
-  s.version          = '1.1.3'
+  s.version          = '1.1.4'
   s.summary          = 'APNSUtil is makes code simple using apple push notification service.'
   s.description      = 'APNSUtil is makes code simple using apple push notification service.'
   s.homepage         = 'https://github.com/pisces/APNSUtil'
@@ -16,6 +16,15 @@ Pod::Spec.new do |s|
   s.author           = { 'pisces' => 'hh963103@gmail.com' }
   s.source           = { :git => 'https://github.com/pisces/APNSUtil.git', :tag => s.version.to_s }
   s.ios.deployment_target = '9.0'
-  s.source_files = 'APNSUtil/Classes/**/*'
   s.dependency 'ObjectMapper', '~> 3.1'
+  s.default_subspec = 'Core'
+
+  s.subspec 'Core' do |core|
+    core.source_files = 'APNSUtil/Classes/**/*'
+  end
+
+  s.subspec 'AppExtension' do |ext|
+    ext.source_files = 'APNSUtil/Classes/**/*'
+    ext.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DAPP_EXTENSIONS' }
+  end
 end

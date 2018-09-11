@@ -60,6 +60,7 @@ public class APNSManager {
         return self
     }
     public func register() -> APNSManager {
+        #if !APP_EXTENSIONS
         if #available(iOS 10.0, *) {
             let options: () -> UNAuthorizationOptions = {
                 var rawValue: UInt = 0
@@ -76,7 +77,7 @@ public class APNSManager {
             }
             
             let center = UNUserNotificationCenter.current()
-            center.delegate = UIApplication.shared.delegate as? UNUserNotificationCenterDelegate!
+            center.delegate = UIApplication.shared.delegate as? UNUserNotificationCenterDelegate
             center.requestAuthorization(options: options()) { (granted, error) in
                 if let error = error {
                     print("Push registration failed")
@@ -92,6 +93,7 @@ public class APNSManager {
             UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: types, categories: nil))
         }
         isAuthorizationStatusDetermined = true
+        #endif
         return self
     }
     public func registerDeviceToken(_ deviceToken: Data) {
@@ -103,7 +105,9 @@ public class APNSManager {
     }
     public func unregister() {
         processingClosureMap.removeAll()
+        #if !APP_EXTENSIONS
         UIApplication.shared.unregisterForRemoteNotifications()
+        #endif
         APNSInstance.shared.clear()
         elements.removeAll()
         isAuthorizationStatusDetermined = true

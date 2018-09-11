@@ -1,6 +1,6 @@
 {
   "name": "APNSUtil",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "summary": "APNSUtil is makes code simple using apple push notification service.",
   "description": "APNSUtil is makes code simple using apple push notification service.",
   "homepage": "https://github.com/pisces/APNSUtil",
@@ -13,15 +13,28 @@
   },
   "source": {
     "git": "https://github.com/pisces/APNSUtil.git",
-    "tag": "1.1.0"
+    "tag": "1.1.4"
   },
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "APNSUtil/Classes/**/*",
   "dependencies": {
     "ObjectMapper": [
       "~> 3.1"
     ]
-  }
+  },
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "APNSUtil/Classes/**/*"
+    },
+    {
+      "name": "AppExtension",
+      "source_files": "APNSUtil/Classes/**/*",
+      "pod_target_xcconfig": {
+        "OTHER_SWIFT_FLAGS": "-DEXTENSIONS"
+      }
+    }
+  ]
 }
