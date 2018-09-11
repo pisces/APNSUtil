@@ -170,7 +170,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/APNSUtil" ~> 1.1.2
+github "pisces/APNSUtil" ~> 1.1.4
 ```
 
 Run `carthage update` to build the framework and drag the built `APNSUtil.framework` into your Xcode project.
