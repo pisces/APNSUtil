@@ -139,8 +139,14 @@ To integrate APNSUtil into your Xcode project using CocoaPods, specify it in you
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 
+# Default
 target '<Your Target Name>' do
-    pod 'APNSUtil', '~> 1.1.2'
+    pod 'APNSUtil', '~> 1.1.4'
+end
+
+# for AppExtension
+target '<Your Target Name>' do
+    pod 'APNSUtil/AppExtension', '~> 1.1.4'
 end
 ```
 
