@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'APNSUtil'
+  s.name             = 'APNSUtilAppExtension'
   s.version          = '1.1.5'
   s.summary          = 'APNSUtil is makes code simple using apple push notification service.'
   s.description      = 'APNSUtil is makes code simple using apple push notification service.'
@@ -18,4 +18,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   s.source_files = 'APNSUtil/Classes/**/*'
   s.dependency 'ObjectMapper', '~> 3.1'
+  s.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DAPP_EXTENSIONS' }
 end
