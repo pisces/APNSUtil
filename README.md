@@ -100,24 +100,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ### Implement your payload model
 ```swift
 import APNSUtil
-import ObjectMapper
 
 extension RemoteNotificationElement {
     typealias T = APNSPayload
 }
 
-struct APNSPayload: Mappable {
+struct APNSPayload: Decodable {
     var msg: String?
     var id: String?
-
-    init?(map: Map) {
-        mapping(map: map)
-    }
-
-    mutating func mapping(map: Map) {
-        msg <- map["msg"]
-        id <- map["id"]
-    }
 }
 ```
 
@@ -141,12 +131,12 @@ platform :ios, '9.0'
 
 # Default
 target '<Your Target Name>' do
-    pod 'APNSUtil', '~> 1.1.5'
+    pod 'APNSUtil', '~> 1.2.0'
 end
 
 # for AppExtension
 target '<Your Target Name>' do
-    pod 'APNSUtil/AppExtension', '~> 1.1.5'
+    pod 'APNSUtil/AppExtension', '~> 1.2.0'
 end
 ```
 
@@ -170,7 +160,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/APNSUtil" ~> 1.1.5
+github "pisces/APNSUtil" ~> 1.2.0
 ```
 
 Run `carthage update` to build the framework and drag the built `APNSUtil.framework` into your Xcode project.
