@@ -8,7 +8,6 @@
 
 import UIKit
 import UserNotifications
-import ObjectMapper
 
 public class APNSManager {
     
@@ -43,16 +42,19 @@ public class APNSManager {
         dequeue()
         return self
     }
-    public func didFinishLaunching<T: Mappable>(withOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?, as type: T.Type) {
+    public func didFinishLaunching<T: Decodable>(withOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?, as type: T.Type) {
         let remote = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
         let local = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? [AnyHashable: Any]
         guard let userInfo = remote ?? local else {return}
         didReceive(userInfo: userInfo, as: type, isInactive: true)
     }
-    public func didReceive<T: Mappable>(userInfo: [AnyHashable : Any], as: T.Type, isInactive: Bool) {
-        let map = Map(mappingType: .fromJSON, JSON: userInfo as! [String: Any])
-        let model = T.init(map: map)!
-        enqueue(RemoteNotificationElement(isInactive: isInactive, model: model)).dequeue()
+    public func didReceive<T: Decodable>(userInfo: [AnyHashable : Any], as: T.Type, isInactive: Bool) {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+            let model = try JSONDecoder().decode(`as`, from: data)
+            enqueue(RemoteNotificationElement(isInactive: isInactive, model: model)).dequeue()
+        } catch {
+        }
     }
     public func processing(_ subscribable: Subscribable, _ closure: @escaping Processing) -> APNSManager {
         guard processingClosureMap[subscribable.hash] == nil else {return self}
@@ -132,7 +134,7 @@ public class APNSManager {
 }
 
 public struct RemoteNotificationElement {
-    public typealias T = Mappable
+    public typealias T = Decodable
     
     public private(set) var isInactive: Bool = false
     private var model: T!
@@ -142,7 +144,7 @@ public struct RemoteNotificationElement {
         self.model = model
     }
     
-    public func payload<E: Mappable>() -> E {
+    public func payload<E: Decodable>() -> E {
         return model as! E
     }
 }
