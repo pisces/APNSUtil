@@ -7,23 +7,13 @@
 //
 
 import APNSUtil
-import ObjectMapper
 
 extension RemoteNotificationElement {
     typealias T = APNSPayload
 }
 
-struct APNSPayload: Mappable {
+struct APNSPayload: Decodable {
     var msg: String?
     var id: String?
-    
-    init?(map: Map) {
-        mapping(map: map)
-    }
-    
-    mutating func mapping(map: Map) {
-        msg <- map["msg"]
-        id <- map["id"]
-    }
 }
 

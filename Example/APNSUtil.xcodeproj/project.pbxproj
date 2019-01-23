@@ -288,18 +288,16 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-APNSUtil_Example/Pods-APNSUtil_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-APNSUtil_Example/Pods-APNSUtil_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/APNSUtil/APNSUtil.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/APNSUtil.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-APNSUtil_Example/Pods-APNSUtil_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-APNSUtil_Example/Pods-APNSUtil_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BDAD0D8957304EFC768F6D68 /* [CP] Check Pods Manifest.lock */ = {

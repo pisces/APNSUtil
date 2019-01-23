@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'APNSUtil_Example' do
-  pod 'APNSUtil/AppExtension', :path => '../'
+  pod 'APNSUtil', :path => '../'
 
   target 'APNSUtil_Tests' do
     inherit! :search_paths
