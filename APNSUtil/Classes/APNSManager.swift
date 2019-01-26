@@ -13,7 +13,7 @@ public class APNSManager {
     
     // MARK: - Constants
     
-    public typealias Processing = (RemoteNotificationElement) -> Void
+    public typealias SubscribeClosure = (RemoteNotificationElement) -> Void
     
     public static let shared = APNSManager()
     private let kAuthorizationStatusDetermined: String = "kAuthorizationStatusDetermined"
@@ -22,7 +22,7 @@ public class APNSManager {
     
     private var isInitialized: Bool = false
     private var types: UIUserNotificationType = [.sound, .alert, .badge]
-    private var processingClosureMap = [Int: Processing]()
+    private var subscribeClosureMap = [Int: SubscribeClosure]()
     private var elements = [RemoteNotificationElement]()
     private(set) var isAuthorizationStatusDetermined: Bool {
         get {
@@ -37,42 +37,33 @@ public class APNSManager {
     // MARK: - Public methods
     
     @discardableResult
-    public func begin() -> APNSManager {
+    public func begin() -> Self {
         isInitialized = true
         dequeue()
         return self
     }
-    public func didFinishLaunching<T: Decodable>(withOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?, as type: T.Type) {
+    public func didFinishLaunching(withOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         let remote = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
         let local = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? [AnyHashable: Any]
         guard let userInfo = remote ?? local else {return}
-        didReceive(userInfo: userInfo, as: type, isInactive: true)
+        didReceive(userInfo: userInfo, isInactive: true)
     }
-    public func didReceive<T: Decodable>(userInfo: [AnyHashable : Any], as: T.Type, isInactive: Bool) {
-        do {
-            let data = try JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
-            let model = try JSONDecoder().decode(`as`, from: data)
-            enqueue(RemoteNotificationElement(isInactive: isInactive, model: model)).dequeue()
-        } catch {
-        }
+    public func didReceive(userInfo: [AnyHashable : Any], isInactive: Bool) {
+        enqueue(.init(isInactive: isInactive, userInfo: userInfo)).dequeue()
     }
-    public func processing(_ subscribable: Subscribable, _ closure: @escaping Processing) -> APNSManager {
-        guard processingClosureMap[subscribable.hash] == nil else {return self}
-        processingClosureMap[subscribable.hash] = closure
-        return self
-    }
-    public func register() -> APNSManager {
+    public func register() -> Self {
         #if !APP_EXTENSIONS
         if #available(iOS 10.0, *) {
+            let types = self.types
             let options: () -> UNAuthorizationOptions = {
                 var rawValue: UInt = 0
-                if self.types.rawValue & UIUserNotificationType.alert.rawValue == UIUserNotificationType.alert.rawValue {
+                if types.rawValue & UIUserNotificationType.alert.rawValue == UIUserNotificationType.alert.rawValue {
                     rawValue |= UNAuthorizationOptions.alert.rawValue
                 }
-                if self.types.rawValue & UIUserNotificationType.sound.rawValue == UIUserNotificationType.sound.rawValue {
+                if types.rawValue & UIUserNotificationType.sound.rawValue == UIUserNotificationType.sound.rawValue {
                     rawValue |= UNAuthorizationOptions.sound.rawValue
                 }
-                if self.types.rawValue & UIUserNotificationType.badge.rawValue == UIUserNotificationType.badge.rawValue {
+                if types.rawValue & UIUserNotificationType.badge.rawValue == UIUserNotificationType.badge.rawValue {
                     rawValue |= UNAuthorizationOptions.badge.rawValue
                 }
                 return UNAuthorizationOptions(rawValue: rawValue)
@@ -81,11 +72,7 @@ public class APNSManager {
             let center = UNUserNotificationCenter.current()
             center.delegate = UIApplication.shared.delegate as? UNUserNotificationCenterDelegate
             center.requestAuthorization(options: options()) { (granted, error) in
-                if let error = error {
-                    print("Push registration failed")
-                    print("ERROR: \(error.localizedDescription) - \(error.localizedDescription)")
-                    return
-                }
+                guard error == nil else {return}
                 
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
@@ -101,12 +88,17 @@ public class APNSManager {
     public func registerDeviceToken(_ deviceToken: Data) {
         APNSInstance.shared.setAPNSToken(deviceToken)
     }
-    public func setTypes(_ types: UIUserNotificationType) -> APNSManager {
+    public func setTypes(_ types: UIUserNotificationType) -> Self {
         self.types = types
         return self
     }
+    public func subscribe<T: Hashable>(_ target: T, _ closure: @escaping SubscribeClosure) -> Self {
+        guard subscribeClosureMap[target.hashValue] == nil else {return self}
+        subscribeClosureMap[target.hashValue] = closure
+        return self
+    }
     public func unregister() {
-        processingClosureMap.removeAll()
+        subscribeClosureMap.removeAll()
         #if !APP_EXTENSIONS
         UIApplication.shared.unregisterForRemoteNotifications()
         #endif
@@ -114,43 +106,40 @@ public class APNSManager {
         elements.removeAll()
         isAuthorizationStatusDetermined = true
     }
-    public func unsubscribe(_ subscribable: Subscribable) {
-        processingClosureMap.removeValue(forKey: subscribable.hash)
+    public func unsubscribe<T: Hashable>(_ target: T) {
+        subscribeClosureMap.removeValue(forKey: target.hashValue)
     }
     
     // MARK: - Private methods
     
     private func dequeue() {
         guard isInitialized, elements.count > 0 else {return}
-        processingClosureMap.forEach { $0.value(elements.first!) }
-        elements.remove(at: 0)
+        let element = elements.removeFirst()
+        subscribeClosureMap.forEach { $0.value(element) }
         dequeue()
     }
     @discardableResult
-    private func enqueue(_ element: RemoteNotificationElement) -> APNSManager {
+    private func enqueue(_ element: RemoteNotificationElement) -> Self {
         elements.append(element)
         return self
     }
 }
 
 public struct RemoteNotificationElement {
-    public typealias T = Decodable
+    public let isInactive: Bool
+    public let userInfo: [AnyHashable : Any]
     
-    public private(set) var isInactive: Bool = false
-    private var model: T!
-    
-    public init(isInactive: Bool, model: T) {
+    public init(isInactive: Bool, userInfo: [AnyHashable : Any]) {
         self.isInactive = isInactive
-        self.model = model
+        self.userInfo = userInfo
     }
     
-    public func payload<E: Decodable>() -> E {
-        return model as! E
+    public func payload<T: Decodable>() -> T? {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted)
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            return nil
+        }
     }
 }
-
-public protocol Subscribable {
-    var hash: Int {get}
-}
-
-extension NSObject: Subscribable {}

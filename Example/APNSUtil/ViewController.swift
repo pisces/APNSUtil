@@ -16,8 +16,13 @@ class ViewController: UIViewController {
         APNSManager.shared
             .setTypes([.sound, .alert, .badge])             // setting user notification types
             .register()                                     // registering to use apns
-            .processing(self) {                             // processing received apns payload
-                let payload: APNSPayload = $0.payload()     // your custom payload with generic
+            .subscribe(self) {                             // subscribe receiving apns payload
+                // your custom payload with generic
+                guard let payload: APNSPayload = $0.payload() else {
+                    return
+                }
+                
+                print("subscribe", $0.isInactive, $0.userInfo, payload)
                 
                 if $0.isInactive {
                     // TODO: write code to present viewController on inactive

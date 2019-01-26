@@ -34,16 +34,21 @@ class ViewController: UIViewController {
 
         APNSManager.shared
             .setTypes([.sound, .alert, .badge])             // setting user notification types
-            .register()                                     // registering to use apns
-            .processing(self) {                             // processing received apns payload
-                let payload: APNSPayload = $0.payload()     // your custom payload with generic
+            .register()                                     // register to use apns
+            .subscribe(self) {                             // subscribe to receive apns payload
+                // your payload model with generic
+                guard let payload: APNSPayload = $0.payload() else {
+                    return
+                }
+
+                print("subscribe", $0.isInactive, $0.userInfo, payload)
 
                 if $0.isInactive {
                     // TODO: write code to present viewController on inactive
                 } else {
                     // TODO: write code to show toast message on active
                 }
-            }.begin()   // begin receiving apns payload
+            }.begin()   // begin to receive apns payload
     }
 }
 ```
@@ -61,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Logic for handling push notifications at initial startup
-        APNSManager.shared.didFinishLaunching(withOptions: launchOptions, as: APNSPayload.self)
+        APNSManager.shared.didFinishLaunching(withOptions: launchOptions)
         return true
     }
 
@@ -70,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         APNSManager.shared.registerDeviceToken(deviceToken)
         // <<your function to register device token on your server>>(APNSInstance.shared.tokenString)
+        // ex) myApiRepository.registerDeviceToken(APNSInstance.shared.tokenString)
     }
 
     // MARK: - Push Notification for iOS 9
@@ -78,45 +84,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        APNSManager.shared.didReceive(userInfo: userInfo, as: APNSPayload.self, isInactive: application.applicationState == .inactive)
+        APNSManager.shared.didReceive(userInfo: userInfo, isInactive: application.applicationState == .inactive)
     }
 
     // MARK: - Push Notification for iOS 10 or higher
 
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        APNSManager.shared.didReceive(userInfo: notification.request.content.userInfo, as: APNSPayload.self, isInactive: false)
+        APNSManager.shared.didReceive(userInfo: notification.request.content.userInfo, isInactive: false)
     }
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        APNSManager.shared.didReceive(userInfo: response.notification.request.content.userInfo, as: APNSPayload.self, isInactive: true)
+        APNSManager.shared.didReceive(userInfo: response.notification.request.content.userInfo, isInactive: true)
     }
 }
 ```
 
 ### Implement your payload model
 ```swift
-import APNSUtil
-
-extension RemoteNotificationElement {
-    typealias T = APNSPayload
-}
-
 struct APNSPayload: Decodable {
     let aps: APS?
-    
-    // write properties for your payload.
-    
+
+    // Add properties here you need
+
     struct APS: Decodable {
         let sound: String?
         let alert: Alert?
     }
-    
+
     struct Alert: Decodable {
         let body: String?
         let title: String?
     }
 }
+```
+
+### Using with your payload model as generic
+
+```swift
+  APNSManager.shared
+      .setTypes([.sound, .alert, .badge])
+      .register()
+      .subscribe(self) {
+          guard let payload: APNSPayload = $0.payload() else {
+              return
+          }
+
+          // write here to process payload model
+      }.begin()
+```
+
+### Using with raw userInfo
+
+```swift
+  APNSManager.shared
+      .setTypes([.sound, .alert, .badge])
+      .register()
+      .subscribe(self) {
+          let userInfo = $0.userInfo
+
+          // write here to process userInfo
+      }.begin()
 ```
 
 ## Installation
@@ -139,12 +167,12 @@ platform :ios, '9.0'
 
 # Default
 target '<Your Target Name>' do
-    pod 'APNSUtil', '~> 1.2.0'
+    pod 'APNSUtil', '~> 1.3.0'
 end
 
 # for AppExtension
 target '<Your Target Name>' do
-    pod 'APNSUtil/AppExtension', '~> 1.2.0'
+    pod 'APNSUtil/AppExtension', '~> 1.3.0'
 end
 ```
 
@@ -168,7 +196,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/APNSUtil" ~> 1.2.0
+github "pisces/APNSUtil" ~> 1.3.0
 ```
 
 Run `carthage update` to build the framework and drag the built `APNSUtil.framework` into your Xcode project.
