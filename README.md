@@ -70,9 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         APNSManager.shared.registerDeviceToken(deviceToken)
         // TODO: write code to update device token with your api server
-    }
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        // TODO: write code to update device token with your api server
+        // If you set, you can use string of deviceToken "APNSInstance.shared.tokenString"
     }
 
     // MARK: - Push Notification for iOS 9
