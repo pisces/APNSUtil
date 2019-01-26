@@ -103,8 +103,20 @@ extension RemoteNotificationElement {
 }
 
 struct APNSPayload: Decodable {
-    var msg: String?
-    var id: String?
+    private(set) var aps: APS?
+    private(set) var alert: Alert?
+    
+    // write properties for your payload.
+    
+    struct APS: Decodable {
+        private(set) var sound: String?
+        private(set) var alert: Alert?
+    }
+    
+    struct Alert: Decodable {
+        private(set) var body: String?
+        private(set) var title: String?
+    }
 }
 ```
 
