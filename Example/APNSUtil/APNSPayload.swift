@@ -8,12 +8,16 @@
 
 import APNSUtil
 
-extension RemoteNotificationElement {
-    typealias T = APNSPayload
-}
-
 struct APNSPayload: Decodable {
-    var msg: String?
-    var id: String?
+    let aps: APS?
+    
+    struct APS: Decodable {
+        let sound: String?
+        let alert: Alert?
+    }
+    
+    struct Alert: Decodable {
+        let body: String?
+        let title: String?
+    }
 }
-
