@@ -69,10 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         APNSManager.shared.registerDeviceToken(deviceToken)
-        // TODO: write code to update device token with your api server
-    }
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        // TODO: write code to update device token with your api server
+        // <<your function to register device token on your server>>(APNSInstance.shared.tokenString)
     }
 
     // MARK: - Push Notification for iOS 9
@@ -106,8 +103,19 @@ extension RemoteNotificationElement {
 }
 
 struct APNSPayload: Decodable {
-    var msg: String?
-    var id: String?
+    let aps: APS?
+    
+    // write properties for your payload.
+    
+    struct APS: Decodable {
+        let sound: String?
+        let alert: Alert?
+    }
+    
+    struct Alert: Decodable {
+        let body: String?
+        let title: String?
+    }
 }
 ```
 
