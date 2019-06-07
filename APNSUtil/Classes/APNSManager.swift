@@ -42,15 +42,6 @@ public class APNSManager {
         dequeue()
         return self
     }
-    public func didFinishLaunching(withOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
-        let remote = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
-        let local = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? [AnyHashable: Any]
-        guard let userInfo = remote ?? local else {return}
-        didReceive(userInfo: userInfo, isInactive: true)
-    }
-    public func didReceive(userInfo: [AnyHashable : Any], isInactive: Bool) {
-        enqueue(.init(isInactive: isInactive, userInfo: userInfo)).dequeue()
-    }
     public func register() -> Self {
         #if !APP_EXTENSIONS
         if #available(iOS 10.0, *) {
@@ -118,12 +109,70 @@ public class APNSManager {
         subscribeClosureMap.forEach { $0.value(element) }
         dequeue()
     }
+    private func didReceive(userInfo: [AnyHashable : Any], isInactive: Bool) {
+        enqueue(.init(isInactive: isInactive, userInfo: userInfo)).dequeue()
+    }
     @discardableResult
     private func enqueue(_ element: RemoteNotificationElement) -> Self {
         elements.append(element)
         return self
     }
 }
+
+#if !APP_EXTENSIONS
+extension APNSManager {
+    
+    // MARK: - Public Methods (Launching)
+    
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+        guard #available(iOS 10.0, *) else {
+            let remote = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
+            let local = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? [AnyHashable: Any]
+            guard let userInfo = remote ?? local else {return}
+            didReceive(userInfo: userInfo, isInactive: true)
+            return
+        }
+    }
+    
+    // MARK: - Public Methods (Register device token)
+    
+    public func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        registerDeviceToken(deviceToken)
+    }
+    
+    // MARK: - Public Methods (Push Notification for iOS 9)
+    
+    public func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        guard #available(iOS 10.0, *) else {
+            application.registerForRemoteNotifications()
+            return
+        }
+    }
+    public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        guard #available(iOS 10.0, *) else {
+            didReceive(userInfo: userInfo, isInactive: application.applicationState == .inactive)
+            return
+        }
+    }
+    
+    // MARK: - Public Methods (Local Notification)
+    
+    public func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        didReceive(userInfo: notification.userInfo ?? [:], isInactive: application.applicationState == .inactive)
+    }
+    
+    // MARK: - Public Methods (Push Notification for iOS 9)
+    
+    @available(iOS 10.0, *)
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) {
+        didReceive(userInfo: notification.request.content.userInfo, isInactive: false)
+    }
+    @available(iOS 10.0, *)
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) {
+        didReceive(userInfo: response.notification.request.content.userInfo, isInactive: true)
+    }
+}
+#endif
 
 public struct RemoteNotificationElement {
     public let isInactive: Bool
