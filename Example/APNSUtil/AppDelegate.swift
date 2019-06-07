@@ -16,14 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        APNSManager.shared.didFinishLaunching(withOptions: launchOptions)
+        APNSManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
     
     // MARK: - Push Notification
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        APNSManager.shared.registerDeviceToken(deviceToken)
+        APNSManager.shared.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
         // <<your function to register device token on your server>>(APNSInstance.shared.tokenString)
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -32,21 +32,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Push Notification for iOS 9
     
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        application.registerForRemoteNotifications()
+        APNSManager.shared.application(application, didRegister: notificationSettings)
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        APNSManager.shared.didReceive(userInfo: userInfo, isInactive: application.applicationState == .inactive)
+        APNSManager.shared.application(application, didReceiveRemoteNotification: userInfo)
     }
     
-    // MARK: - Push Notification for iOS 10 or higher
+    // MARK: - Public Methods (UIApplicationDelegate - Local Notification)
     
-    @available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        APNSManager.shared.didReceive(userInfo: notification.request.content.userInfo, isInactive: false)
-    }
-    @available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        APNSManager.shared.didReceive(userInfo: response.notification.request.content.userInfo, isInactive: true)
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        APNSManager.shared.application(application, didReceive: notification)
     }
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        APNSManager.shared.userNotificationCenter(center, willPresent: notification)
+    }
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        APNSManager.shared.userNotificationCenter(center, didReceive: response)
+    }
+}
