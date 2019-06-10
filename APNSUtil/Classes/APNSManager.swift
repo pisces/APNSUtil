@@ -124,10 +124,10 @@ extension APNSManager {
     
     // MARK: - Public Methods (Launching)
     
-    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         guard #available(iOS 10.0, *) else {
-            let remote = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
-            let local = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? [AnyHashable: Any]
+            let remote = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
+            let local = launchOptions?[UIApplication.LaunchOptionsKey.localNotification] as? [AnyHashable: Any]
             guard let userInfo = remote ?? local else {return}
             didReceive(userInfo: userInfo, isInactive: true)
             return
