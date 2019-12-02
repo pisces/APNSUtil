@@ -1,6 +1,6 @@
 # APNSUtil
 
-![Swift](https://img.shields.io/badge/Swift-4.2-orange.svg)
+![Swift](https://img.shields.io/badge/Swift-5-orange.svg)
 [![CI Status](http://img.shields.io/travis/pisces/APNSUtil.svg?style=flat)](https://travis-ci.org/pisces/APNSUtil)
 [![Version](https://img.shields.io/cocoapods/v/APNSUtil.svg?style=flat)](http://cocoapods.org/pods/APNSUtil)
 [![License](https://img.shields.io/cocoapods/l/APNSUtil.svg?style=flat)](http://cocoapods.org/pods/APNSUtil)
@@ -68,27 +68,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         APNSManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
-    
+
     // MARK: - Push Notification
-    
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         APNSManager.shared.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
         // <<your function to register device token on your server>>(APNSInstance.shared.tokenString)
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
     }
-    
+
     // MARK: - Push Notification for iOS 9
-    
+
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         APNSManager.shared.application(application, didRegister: notificationSettings)
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         APNSManager.shared.application(application, didReceiveRemoteNotification: userInfo)
     }
-    
+
     // MARK: - Public Methods (UIApplicationDelegate - Local Notification)
-    
+
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         APNSManager.shared.application(application, didReceive: notification)
     }
@@ -173,12 +173,12 @@ platform :ios, '9.0'
 
 # Default
 target '<Your Target Name>' do
-    pod 'APNSUtil', '~> 1.5.0'
+    pod 'APNSUtil', '~> 1.6.0'
 end
 
 # for AppExtension
 target '<Your Target Name>' do
-    pod 'APNSUtil/AppExtension', '~> 1.5.0'
+    pod 'APNSUtil/AppExtension', '~> 1.6.0'
 end
 ```
 
@@ -202,7 +202,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/APNSUtil" ~> 1.5.0
+github "pisces/APNSUtil" ~> 1.6.0
 ```
 
 Run `carthage update` to build the framework and drag the built `APNSUtil.framework` into your Xcode project.
