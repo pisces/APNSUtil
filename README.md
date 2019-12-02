@@ -1,6 +1,6 @@
 # APNSUtil
 
-![Swift](https://img.shields.io/badge/Swift-4.x-orange.svg)
+![Swift](https://img.shields.io/badge/Swift-4.2-orange.svg)
 [![CI Status](http://img.shields.io/travis/pisces/APNSUtil.svg?style=flat)](https://travis-ci.org/pisces/APNSUtil)
 [![Version](https://img.shields.io/cocoapods/v/APNSUtil.svg?style=flat)](http://cocoapods.org/pods/APNSUtil)
 [![License](https://img.shields.io/cocoapods/l/APNSUtil.svg?style=flat)](http://cocoapods.org/pods/APNSUtil)
@@ -173,12 +173,12 @@ platform :ios, '9.0'
 
 # Default
 target '<Your Target Name>' do
-    pod 'APNSUtil', '~> 1.4.0'
+    pod 'APNSUtil', '~> 1.5.0'
 end
 
 # for AppExtension
 target '<Your Target Name>' do
-    pod 'APNSUtil/AppExtension', '~> 1.4.0'
+    pod 'APNSUtil/AppExtension', '~> 1.5.0'
 end
 ```
 
@@ -202,7 +202,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/APNSUtil" ~> 1.4.0
+github "pisces/APNSUtil" ~> 1.5.0
 ```
 
 Run `carthage update` to build the framework and drag the built `APNSUtil.framework` into your Xcode project.
